@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-md-4">
           <%= image_tag @movie.avatar.url(:original) %>
-          <div class="star-rating" data-score= <%= @avg_review %> ></div>
+          
           <em><%= "#{@reviews.length} reviews" %></em>
           <div class="table-responsive">
             <table class="table">
@@ -56,12 +56,4 @@
   <%= link_to 'Edit', edit_movie_path(@movie) %> |
   <%= link_to 'Back', movies_path %>
 
-  <script>
-      $('.star-rating').raty({
-        path: '/assets/',
-        readOnly: true,
-        score: function() {
-              return $(this).attr('data-score');
-      }
-    });
-  </script>
+  

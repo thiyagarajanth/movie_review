@@ -1,0 +1,42 @@
+$(function() {
+  $('.rating')
+  .each(function() {
+    $this = $(this);
+    Rating($this);
+  });
+  $('.rating-average')
+  .each(function() {
+    $this = $(this);
+    RatingAverage($this);
+  });
+});
+
+function Rating($rating) {
+  $rating.raty({
+    readOnly: true,
+    score: $rating.data('rating'),
+    scoreName: 'star',
+    space: true
+  });
+}
+
+function RatingAverage($rating_average) {
+  $rating_average.raty({
+    size: 24,
+    score: $rating_average.data('rating'),
+    scoreName: 'star',
+    space: true,
+    starHalf: '<%= image_path('star-half-big.png') %>',
+    starOn: '<%= image_path('star-on-big.png') %>',
+    starOff: '<%= image_path('star-off-big.png') %>',
+    click: function(value) {
+      var id = $rating_average.closest('.movie').data('movie-id'),
+          url = '/movies/'+id+'/rate';
+      $.post(url, {
+        ratable_rating: {
+          value: value
+        }
+      });
+    }
+  });
+}

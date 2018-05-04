@@ -10,8 +10,21 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery2
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks
+//= require ratable
 //= require_tree .
+
+$(function() {
+  $('.rating').each(function() {
+    $this = $(this);
+    $this.raty({
+      readOnly: true,
+      score: $this.data('rating'),
+      scoreName: 'star',
+      space: true
+    });
+  });
+});

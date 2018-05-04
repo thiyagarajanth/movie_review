@@ -1,10 +1,14 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy,:rate]
   before_action :authenticate_user!, except: [:index, :show]
   # GET /movies
   # GET /movies.json
   def index
     @movies = Movie.all
+    # @rating = Rating.where(comment_id: @comment.id, user_id: @current_user.id).first
+    # unless @rating
+    #   @rating = Rating.create(comment_id: @comment.id, user_id: @current_user.id, score: 0)
+    # end
   end
 
   # GET /movies/1
@@ -67,6 +71,22 @@ class MoviesController < ApplicationController
     end
   end
 
+  def rate
+    @rating = @movie.rate(movie_rating_params)
+  end
+
+  def upvote 
+    @link = Movie.find(params[:id])
+    @link.upvote_by current_user
+    redirect_to :back
+  end  
+
+  def downvote
+    @link = Movie.find(params[:id])
+    @link.downvote_by current_user
+    redirect_to :back
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
@@ -76,5 +96,8 @@ class MoviesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
       params.require(:movie).permit(:title, :description, :movie_length, :director, :rating, :avatar)
+    end
+    def movie_rating_params
+      params.require(:ratable_rating).permit(:value)
     end
 end

@@ -25,6 +25,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'nokogiri', '~> 1.6.8'
 gem 'devise'
 gem 'paperclip', '~> 4.2.0'
+#gem 'ratyrate'
+
+gem 'acts_as_votable', '~> 0.11.1'
+gem 'ratable'
+
 
 
 gem "therubyracer"

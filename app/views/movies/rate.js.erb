@@ -1,0 +1,14 @@
+var $movie = $('#movie_<%= @movie.id %>');
+var $latestRatings = $movie.find('.latest-ratings');
+
+$latestRatings.prepend('<%= j render @rating %>');
+var $ratings = $latestRatings.find('.rating');
+var $latestRating = $ratings.first();
+var $lastRating = $ratings.last();
+$lastRating.parent().remove();
+Rating($latestRating);
+
+$currentRating = $movie.find('.current-rating')
+$currentRating.html('<%= j render @movie.rating_average %>');
+$ratingAverage = $currentRating.find('.rating-average');
+RatingAverage($ratingAverage);
